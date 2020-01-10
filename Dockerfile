@@ -8,6 +8,7 @@ RUN 	apt-get update && \
 
 RUN		apt-get install -y	nginx \
 							php7.3-fpm \
+							mariadb-server \
 							wget \
 							vim
 #Setting up NGINX
@@ -21,7 +22,7 @@ COPY	srcs/localhost.conf /etc/nginx/sites-available/default
 
 COPY	srcs/wordpress /var/www/html/wordpress
 
-#Downloading and Extracting
+#Downloading and Extracting Wordpress
 #RUN		wget -nv https://www.wordpress.org/latest.tar.gz
 
 #RUN		tar xzf latest.tar.gz && \
@@ -29,7 +30,16 @@ COPY	srcs/wordpress /var/www/html/wordpress
 #			rm latest.tar.gz
 
 
-#Get MySQL
+#Get PHPMyAdmin
+
+RUN		wget -nv https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.tar.gz
+
+RUN		tar xzf phpMyAdmin-5.0.1-english.tar.gz && \
+		mv phpMyAdmin-5.0.1-english /var/www/html/phpmyadmin && \
+		rm phpMyAdmin-5.0.1-english.tar.gz
+
+
+#Setup MySQL
 
 COPY	srcs/script.sh /
 
