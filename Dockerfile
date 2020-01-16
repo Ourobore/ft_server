@@ -8,6 +8,9 @@ RUN 	apt-get update && \
 
 RUN		apt-get install -y	nginx \
 							php7.3-fpm \
+							php7.3-mysql \
+							default-mysql-server \
+							default-mysql-client \
 							mariadb-server \
 							wget \
 							vim
@@ -21,6 +24,8 @@ COPY	srcs/localhost.conf /etc/nginx/sites-available/default
 #Get Wordpress
 
 COPY	srcs/wordpress /var/www/html/wordpress
+
+COPY	srcs/wp-config.php /var/www/html/wordpress/wp-config.php
 
 #Downloading and Extracting Wordpress
 #RUN		wget -nv https://www.wordpress.org/latest.tar.gz
