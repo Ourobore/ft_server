@@ -8,8 +8,9 @@ echo extension=mysqli.so >> /etc/php/7.3/fpm/php.ini
 
 #Setting up database
 
-mysql -e "SET PASSWORD FOR 'username'@'localhost' = PASSWORD('password');"
+mysql -e "CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';"
 mysql -e "CREATE DATABASE wordpress"
 
 mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';"
 service mysql restart
+
