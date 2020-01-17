@@ -43,6 +43,7 @@ RUN		tar xzf phpMyAdmin-5.0.1-english.tar.gz && \
 
 RUN     echo "extension=mysqli.so" >> /etc/php/7.3/fpm/php.ini
 
+
 #RUN		echo "\$cfg['ForceSSL'] = true;" > /var/www/html/phpmyadmin/config.inc.php
 
 
@@ -58,6 +59,12 @@ RUN		openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /server.key -ou
 
 RUN		mv /server.crt /etc/ssl/server.crt && mv /server.key /etc/ssl/server.key 
 
+RUN		mv /var/www/html/phpmyadmin/config.sample.inc.php  /var/www/html/phpmyadmin/config.inc.php
+
+RUN		echo "\$cfg['Servers'][\$i]['ssl'] = true;" >> /var/www/html/phpmyadmin/config.inc.php && \
+		echo "\$cfg['Servers'][\$i]['ssl_key'] = '/etc/ssl/server.key';" >> /var/www/html/phpmyadmin/config.inc.php && \
+		echo "\$cfg['Servers'][\$i]['ssl_cert'] = '/etc/ssl/server.crt';" >> /var/www/html/phpmyadmin/config.inc.php && \
+		echo "\$cfg['Servers'][\$i]['ssl_verify'] = false;" >> /var/www/html/phpmyadmin/config.inc.php
 
 #============= Launching the services =====
 CMD		service mysql start && \
