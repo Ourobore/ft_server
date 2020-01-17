@@ -10,7 +10,6 @@ RUN		apt-get install -y	nginx \
 							php7.3-fpm \
 							php7.3-mysql \
 							mariadb-server \
-							openssl \
 							wget \
 							vim
 
@@ -44,10 +43,10 @@ RUN		tar xzf phpMyAdmin-5.0.1-english.tar.gz && \
 
 RUN     echo "extension=mysqli.so" >> /etc/php/7.3/fpm/php.ini
 
-RUN		echo "\$cfg['ForceSSL'] = true;" > /var/www/html/phpmyadmin/config.inc.php
+#RUN		echo "\$cfg['ForceSSL'] = true;" > /var/www/html/phpmyadmin/config.inc.php
 
 
-#S============= Setting up database =======
+#============= Setting up database =======
 RUN		service mysql start && \
 		mysql -e "CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';" && \
 		mysql -e "CREATE DATABASE wordpress" && \
