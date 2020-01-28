@@ -10,6 +10,7 @@ RUN		apt-get install -y	nginx \
 							php7.3-fpm \
 							php7.3-mysql \
 							mariadb-server \
+							mariadb-client \
 							wget \
 							vim
 
@@ -59,12 +60,12 @@ RUN		openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /server.key -ou
 
 RUN		mv /server.crt /etc/ssl/server.crt && mv /server.key /etc/ssl/server.key 
 
-RUN		mv /var/www/html/phpmyadmin/config.sample.inc.php  /var/www/html/phpmyadmin/config.inc.php
+#RUN		mv /var/www/html/phpmyadmin/config.sample.inc.php  /var/www/html/phpmyadmin/config.inc.php
 
-RUN		echo "\$cfg['Servers'][\$i]['ssl'] = true;" >> /var/www/html/phpmyadmin/config.inc.php && \
-		echo "\$cfg['Servers'][\$i]['ssl_key'] = '/etc/ssl/server.key';" >> /var/www/html/phpmyadmin/config.inc.php && \
-		echo "\$cfg['Servers'][\$i]['ssl_cert'] = '/etc/ssl/server.crt';" >> /var/www/html/phpmyadmin/config.inc.php && \
-		echo "\$cfg['Servers'][\$i]['ssl_verify'] = false;" >> /var/www/html/phpmyadmin/config.inc.php
+#RUN		echo "\$cfg['Servers'][\$i]['ssl'];" >> /var/www/html/phpmyadmin/config.inc.php && \
+#		echo "\$cfg['Servers'][\$i]['ssl_key'] = '/etc/ssl/server.key';" >> /var/www/html/phpmyadmin/config.inc.php && \
+#		echo "\$cfg['Servers'][\$i]['ssl_cert'] = '/etc/ssl/server.crt';" >> /var/www/html/phpmyadmin/config.inc.php && \
+#		echo "\$cfg['Servers'][\$i]['ssl_verify'] = false;" >> /var/www/html/phpmyadmin/config.inc.php
 
 #============= Launching the services =====
 CMD		service mysql start && \
